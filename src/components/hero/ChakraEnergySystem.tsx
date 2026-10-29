@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from 'react';
-import { Sparkles } from 'lucide-react';
 
 export interface ChakraData {
   id: string;
@@ -10,87 +9,17 @@ export interface ChakraData {
   color: string;
   glowColor: string;
   freq: number;
-  yPercent: number; // percentage from top of figure
+  yPercent: number;
 }
 
 export const CHAKRAS: ChakraData[] = [
-  {
-    id: 'crown',
-    name: 'Sahasrara',
-    sanskrit: 'सहस्रार',
-    english: 'Crown Chakra',
-    meaning: 'Pure Cosmic Consciousness · The Infinite Transcendence',
-    color: '#FFFFFF',
-    glowColor: 'rgba(255, 255, 255, 0.9)',
-    freq: 963,
-    yPercent: 17.5,
-  },
-  {
-    id: 'third-eye',
-    name: 'Ajna',
-    sanskrit: 'आज्ञा',
-    english: 'Third Eye',
-    meaning: 'Perception · Lucid Vision & Intuitive Awakening',
-    color: '#A855F7',
-    glowColor: 'rgba(168, 85, 247, 0.85)',
-    freq: 852,
-    yPercent: 22.8,
-  },
-  {
-    id: 'throat',
-    name: 'Vishuddha',
-    sanskrit: 'विशुद्ध',
-    english: 'Throat Chakra',
-    meaning: 'Empirical Truth · Sonic Expression & Resonance',
-    color: '#4FD8E8',
-    glowColor: 'rgba(79, 216, 232, 0.85)',
-    freq: 741,
-    yPercent: 29.5,
-  },
-  {
-    id: 'heart',
-    name: 'Anahata',
-    sanskrit: 'अनाहत',
-    english: 'Heart Center',
-    meaning: 'Unstruck Sound · Empathy & Collective Psyche',
-    color: '#00F5A0',
-    glowColor: 'rgba(0, 245, 160, 0.85)',
-    freq: 639,
-    yPercent: 37.5,
-  },
-  {
-    id: 'solar',
-    name: 'Manipura',
-    sanskrit: 'मणिपूर',
-    english: 'Solar Plexus',
-    meaning: 'Inner Fire · Willpower, Drive & Vitality',
-    color: '#F2B84B',
-    glowColor: 'rgba(242, 184, 75, 0.85)',
-    freq: 528,
-    yPercent: 46.2,
-  },
-  {
-    id: 'sacral',
-    name: 'Svadhisthana',
-    sanskrit: 'स्वाधिष्ठान',
-    english: 'Sacral Chakra',
-    meaning: 'Creative Flow · Emotion & Expressive Artistry',
-    color: '#C13DD6',
-    glowColor: 'rgba(193, 61, 214, 0.85)',
-    freq: 417,
-    yPercent: 52.8,
-  },
-  {
-    id: 'root',
-    name: 'Muladhara',
-    sanskrit: 'मूलाधार',
-    english: 'Root Chakra',
-    meaning: 'Foundation · Primordial Grounding & Existence',
-    color: '#FF3366',
-    glowColor: 'rgba(255, 51, 102, 0.85)',
-    freq: 396,
-    yPercent: 59.2,
-  },
+  { id:'crown',     name:'Sahasrara',    sanskrit:'सहस्रार',       english:'Crown',        meaning:'Pure Cosmic Consciousness',          color:'#FFFFFF', glowColor:'rgba(255,255,255,0.85)', freq:963, yPercent:17.5 },
+  { id:'third-eye', name:'Ajna',         sanskrit:'आज्ञा',          english:'Third Eye',    meaning:'Lucid Perception & Intuition',       color:'#A855F7', glowColor:'rgba(168,85,247,0.85)',  freq:852, yPercent:23.5 },
+  { id:'throat',    name:'Vishuddha',    sanskrit:'विशुद्ध',        english:'Throat',       meaning:'Sonic Expression & Truth',           color:'#4FD8E8', glowColor:'rgba(79,216,232,0.85)',  freq:741, yPercent:30.5 },
+  { id:'heart',     name:'Anahata',      sanskrit:'अनाहत',          english:'Heart',        meaning:'Empathy & Collective Consciousness', color:'#00F5A0', glowColor:'rgba(0,245,160,0.85)',   freq:639, yPercent:38.5 },
+  { id:'solar',     name:'Manipura',     sanskrit:'मणिपूर',         english:'Solar Plexus', meaning:'Willpower, Drive & Inner Fire',      color:'#F2B84B', glowColor:'rgba(242,184,75,0.85)',  freq:528, yPercent:47.0 },
+  { id:'sacral',    name:'Svadhisthana', sanskrit:'स्वाधिष्ठान',   english:'Sacral',       meaning:'Creative Flow & Emotional Depth',   color:'#C13DD6', glowColor:'rgba(193,61,214,0.85)', freq:417, yPercent:53.5 },
+  { id:'root',      name:'Muladhara',    sanskrit:'मूलाधार',        english:'Root',         meaning:'Primordial Grounding & Existence',   color:'#FF3366', glowColor:'rgba(255,51,102,0.85)', freq:396, yPercent:60.0 },
 ];
 
 interface ChakraEnergySystemProps {
@@ -103,169 +32,120 @@ export const ChakraEnergySystem: React.FC<ChakraEnergySystemProps> = ({
   audioActive,
 }) => {
   const [activeChakra, setActiveChakra] = useState<ChakraData | null>(null);
-  const [animatingAll, setAnimatingAll] = useState(false);
 
-  // Play Crystal Singing Bowl Solfeggio frequency via Web Audio
-  const playChakraTone = useCallback((freq: number) => {
+  const playTone = useCallback((freq: number) => {
     if (!audioActive) return;
     try {
       const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
       const ctx = new AudioCtx();
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
-
       osc.type = 'sine';
       osc.frequency.setValueAtTime(freq, ctx.currentTime);
-
       gain.gain.setValueAtTime(0.001, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.12, ctx.currentTime + 0.1);
-      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 1.8);
-
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start();
-      osc.stop(ctx.currentTime + 1.85);
-    } catch {
-      // Audio not supported or blocked
-    }
+      gain.gain.exponentialRampToValueAtTime(0.1, ctx.currentTime + 0.1);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 1.6);
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.start(); osc.stop(ctx.currentTime + 1.7);
+    } catch { /* blocked */ }
   }, [audioActive]);
 
   const handleSelect = (chakra: ChakraData) => {
     setActiveChakra(chakra);
-    playChakraTone(chakra.freq);
-    if (onChakraTrigger) onChakraTrigger(chakra);
+    playTone(chakra.freq);
+    onChakraTrigger?.(chakra);
   };
 
-  // Kundalini Ascension Sequence: ripple through all 7 chakras
-  const triggerAscension = () => {
-    if (animatingAll) return;
-    setAnimatingAll(true);
-
-    const reversed = [...CHAKRAS].reverse(); // from root to crown
-    reversed.forEach((c, idx) => {
-      setTimeout(() => {
-        setActiveChakra(c);
-        playChakraTone(c.freq);
-        if (onChakraTrigger) onChakraTrigger(c);
-        if (idx === reversed.length - 1) {
-          setTimeout(() => {
-            setAnimatingAll(false);
-          }, 1500);
-        }
-      }, idx * 420);
-    });
-  };
+  const handleDeselect = () => setActiveChakra(null);
 
   return (
-    <div className="absolute inset-0 pointer-events-none z-20">
-      {/* Central Spinal Conduit Line */}
-      <div 
-        className="absolute left-1/2 -translate-x-1/2 w-[1.5px] pointer-events-none"
-        style={{
-          top: '16%',
-          bottom: '39%',
-          background: 'linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(168,85,247,0.7), rgba(79,216,232,0.7), rgba(0,245,160,0.7), rgba(242,184,75,0.7), rgba(193,61,214,0.7), rgba(255,51,102,0.8))',
-          boxShadow: '0 0 10px rgba(79, 216, 232, 0.6)',
-          opacity: activeChakra ? 0.85 : 0.45,
-          transition: 'opacity 0.4s ease',
-        }}
-      />
+    <>
+      {/* ── SPINAL DOT OVERLAY (purely inside the figure) ── */}
+      <div className="absolute inset-0 pointer-events-none z-10">
+        {/* Spinal conduit */}
+        <div
+          className="absolute left-1/2 -translate-x-px transition-opacity duration-500"
+          style={{
+            top: '17%',
+            bottom: '39%',
+            width: '1.5px',
+            background: 'linear-gradient(to bottom, rgba(255,255,255,0.7), rgba(168,85,247,0.6), rgba(79,216,232,0.6), rgba(0,245,160,0.6), rgba(242,184,75,0.6), rgba(193,61,214,0.6), rgba(255,51,102,0.7))',
+            boxShadow: '0 0 8px rgba(79,216,232,0.5)',
+            opacity: activeChakra ? 0.9 : 0.4,
+          }}
+        />
 
-      {/* 7 Interactive Spinal Chakra Pulsars */}
-      {CHAKRAS.map((chakra) => {
-        const isCurrent = activeChakra?.id === chakra.id;
-
-        return (
-          <div
-            key={chakra.id}
-            className="absolute left-1/2 -translate-x-1/2 pointer-events-auto cursor-pointer group"
-            style={{
-              top: `${chakra.yPercent}%`,
-              transform: 'translate(-50%, -50%)',
-            }}
-            onMouseEnter={() => handleSelect(chakra)}
-            onClick={() => handleSelect(chakra)}
-          >
-            {/* Pulsing Outer Energy Corona */}
+        {/* Chakra dots */}
+        {CHAKRAS.map((c) => {
+          const active = activeChakra?.id === c.id;
+          return (
             <div
-              className="absolute -inset-3 rounded-full transition-all duration-300 pointer-events-none"
-              style={{
-                background: `radial-gradient(circle, ${chakra.glowColor} 0%, transparent 75%)`,
-                transform: isCurrent ? 'scale(2.2)' : 'scale(1)',
-                opacity: isCurrent ? 0.95 : 0.4,
-              }}
-            />
-
-            {/* Core Glowing Energy Node */}
-            <div
-              className="relative w-4 h-4 md:w-5 md:h-5 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-125"
-              style={{
-                border: `1.5px solid ${chakra.color}`,
-                boxShadow: `0 0 12px ${chakra.color}, inset 0 0 8px ${chakra.color}`,
-                backgroundColor: isCurrent ? chakra.color : 'rgba(23, 20, 31, 0.7)',
-              }}
+              key={c.id}
+              className="absolute left-1/2 pointer-events-auto cursor-pointer"
+              style={{ top: `${c.yPercent}%`, transform: 'translate(-50%, -50%)' }}
+              onMouseEnter={() => handleSelect(c)}
+              onMouseLeave={handleDeselect}
+              onClick={() => handleSelect(c)}
             >
+              {/* corona */}
               <div
-                className="w-1.5 h-1.5 rounded-full transition-transform"
+                className="absolute rounded-full transition-all duration-300 pointer-events-none"
                 style={{
-                  backgroundColor: '#FFFFFF',
-                  boxShadow: `0 0 6px ${chakra.color}`,
-                  transform: isCurrent ? 'scale(1.4)' : 'scale(1)',
+                  inset: '-10px',
+                  background: `radial-gradient(circle, ${c.glowColor} 0%, transparent 70%)`,
+                  opacity: active ? 1 : 0.3,
+                  transform: active ? 'scale(1.8)' : 'scale(1)',
+                }}
+              />
+              {/* dot */}
+              <div
+                className="relative w-3 h-3 md:w-4 md:h-4 rounded-full transition-all duration-200"
+                style={{
+                  border: `1.5px solid ${c.color}`,
+                  backgroundColor: active ? c.color : 'rgba(23,20,31,0.8)',
+                  boxShadow: active ? `0 0 14px ${c.color}` : `0 0 6px ${c.color}55`,
                 }}
               />
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
 
-      {/* Holographic Chakra Energy Card (Floats beside the active chakra) */}
-      {activeChakra && (
-        <div
-          className="absolute z-30 transition-all duration-400 ease-out pointer-events-none"
-          style={{
-            top: `${activeChakra.yPercent}%`,
-            left: 'calc(50% + 42px)',
-            transform: 'translateY(-50%)',
-          }}
-        >
-          <div className="glass-panel px-4 py-3 rounded-2xl border shadow-2xl backdrop-blur-xl max-w-xs text-left animate-in fade-in zoom-in-95 duration-200">
-            <div className="flex items-center gap-2 mb-1">
+      {/* ── CHAKRA INFO PANEL — fixed bottom-left, never overlaps hero text ── */}
+      <div
+        className="fixed bottom-24 left-5 z-50 pointer-events-none transition-all duration-300"
+        style={{ opacity: activeChakra ? 1 : 0, transform: activeChakra ? 'translateY(0)' : 'translateY(8px)' }}
+      >
+        {activeChakra && (
+          <div
+            className="rounded-2xl px-4 py-3 text-left max-w-[220px]"
+            style={{
+              background: 'rgba(14,12,22,0.88)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: `1px solid ${activeChakra.color}44`,
+              boxShadow: `0 0 24px ${activeChakra.color}22, 0 8px 32px rgba(0,0,0,0.5)`,
+            }}
+          >
+            <div className="flex items-center gap-2 mb-1.5">
               <span
-                className="w-2.5 h-2.5 rounded-full shadow-[0_0_8px]"
-                style={{
-                  backgroundColor: activeChakra.color,
-                  boxShadow: `0 0 10px ${activeChakra.color}`,
-                }}
+                className="w-2 h-2 rounded-full flex-shrink-0"
+                style={{ backgroundColor: activeChakra.color, boxShadow: `0 0 8px ${activeChakra.color}` }}
               />
-              <span className="text-[10px] font-mono tracking-widest uppercase text-ivory/60">
+              <span className="text-[10px] font-mono tracking-widest uppercase opacity-60" style={{ color: activeChakra.color }}>
                 {activeChakra.sanskrit} · {activeChakra.freq} Hz
               </span>
             </div>
-            <div className="text-sm font-semibold text-ivory tracking-wide flex items-center gap-1.5">
-              <span>{activeChakra.name}</span>
-              <span className="text-xs text-lavender font-normal">({activeChakra.english})</span>
-            </div>
-            <p className="text-[11px] text-ivory-muted leading-tight mt-1">
+            <p className="text-[13px] font-semibold text-white leading-tight">
+              {activeChakra.name}
+              <span className="text-[11px] font-normal ml-1.5 opacity-60">({activeChakra.english})</span>
+            </p>
+            <p className="text-[11px] mt-1 leading-snug opacity-55 text-white">
               {activeChakra.meaning}
             </p>
           </div>
-        </div>
-      )}
-
-      {/* Floating Kundalini Awakening Trigger Button */}
-      <div className="absolute bottom-6 left-6 z-30 pointer-events-auto">
-        <button
-          onClick={triggerAscension}
-          disabled={animatingAll}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-lavender/25 bg-midnight/80 backdrop-blur-md text-xs font-medium text-lavender hover:text-ivory hover:border-holo-cyan/50 transition-all duration-300 shadow-xl cursor-pointer group"
-          title="Harmonize all 7 spinal energy centers"
-        >
-          <Sparkles className="w-3.5 h-3.5 text-holo-cyan group-hover:rotate-45 transition-transform" />
-          <span className="font-mono text-[11px] tracking-wider uppercase">
-            {animatingAll ? 'Harmonizing Psyche...' : 'Awaken 7 Chakras'}
-          </span>
-        </button>
+        )}
       </div>
-    </div>
+    </>
   );
 };
