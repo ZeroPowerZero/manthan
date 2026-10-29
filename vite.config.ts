@@ -8,8 +8,6 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          'three-vendor': ['three', '@react-three/fiber', '@react-three/drei'],
-          'postprocessing-vendor': ['@react-three/postprocessing', 'postprocessing'],
           'animation-vendor': ['gsap', 'lenis', 'framer-motion'],
           'ui-vendor': ['lucide-react', 'zustand', 'canvas-confetti'],
         },
