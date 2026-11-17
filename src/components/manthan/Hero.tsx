@@ -1,90 +1,177 @@
-import React from 'react';
-import { Prismatic } from '../ui/prismatic-display';
-import { SESSIONS_DATA } from '../../data/manthanContent';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import React, { useRef, useState } from 'react';
+import { ArrowDown, Play, Pause, Volume2, VolumeX, Building2, Bell, BellOff } from 'lucide-react';
+import { CelestialStarfieldCanvas } from '../hero/CelestialStarfieldCanvas';
+import { MANTHAN_CONTENT } from '../../data/manthanContent';
+import { toggleCosmicSound } from '../../lib/cosmicSound';
 
 interface HeroProps {
   onSelectTopic?: (topicId: string) => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onSelectTopic }) => {
+export const Hero: React.FC<HeroProps> = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
+  const [soundActive, setSoundActive] = useState(false);
+
+  const handleSoundToggle = () => {
+    const newState = toggleCosmicSound();
+    setSoundActive(newState);
+  };
+
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+      const navOffset = 80;
+      const elementPosition = el.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
     }
   };
 
-  const handleTopicClick = (topicId: string) => {
-    if (onSelectTopic) onSelectTopic(topicId);
-    scrollTo('sessions');
+  const togglePlay = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        videoRef.current.play();
+        setIsPlaying(true);
+      }
+    }
+  };
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
   };
 
   return (
-    <section id="home" className="relative w-full min-h-screen overflow-hidden bg-midnight">
-      <Prismatic onScrollDown={() => scrollTo('sessions')} className="min-h-screen w-full">
-        <div className="flex flex-col items-center max-w-3xl mx-auto text-center px-4 pt-16 sm:pt-20 pb-10">
-          {/* Status / Mission Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-lavender/15 bg-midnight/80 backdrop-blur-md mb-6 select-none shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-holo-cyan animate-pulse" />
-            <span className="text-[11px] font-mono tracking-wider text-lavender/90 uppercase">
-              Open for Institutional Collaborations
-            </span>
-          </div>
+    <section
+      id="home"
+      className="relative w-full min-h-screen pt-32 pb-24 flex items-center justify-center overflow-hidden bg-theme-bg"
+    >
+      {/* 1. Celestial Night Sky Starfield Canvas */}
+      <CelestialStarfieldCanvas className="absolute inset-0 w-full h-full pointer-events-none z-0" />
 
-          {/* Core Title & Tagline */}
-          <h1 className="font-mono text-5xl sm:text-7xl md:text-8xl font-black tracking-tight text-ivory mb-4 uppercase drop-shadow-lg">
-            MANTHAN
-          </h1>
+      {/* 2. Background Video (Centered in background, naturally proportioned) */}
+      <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none z-0">
+        <video
+          ref={videoRef}
+          src="/hero-video.mp4"
+          autoPlay
+          loop
+          muted={isMuted}
+          playsInline
+          className="h-[88vh] max-w-[540px] object-cover opacity-25 select-none"
+        />
+        {/* Soft cosmic dark vignette */}
+        <div className="absolute inset-0 bg-[#0A0B1E]/45" />
+      </div>
 
-          <p className="text-xl sm:text-2xl md:text-3xl font-display font-light text-holo-cyan mb-6 tracking-wide italic">
-            Explore. Understand. Evolve.
-          </p>
+      {/* 3. Foreground Hero Content (Clean, Spacious, Majestic) */}
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+        {/* Brand Emblem with Starlight Aura */}
+        <div className="relative mb-5 flex items-center justify-center group">
+          <div className="absolute -inset-6 bg-gradient-to-tr from-indigo-600/20 via-amber-400/20 to-cyan-400/20 blur-2xl rounded-full pointer-events-none" />
+          <img
+            src="/manthan-emblem-transparent.png"
+            alt="MANTHAN Celestial Emblem"
+            className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 object-contain drop-shadow-[0_0_30px_rgba(251,191,36,0.35)] select-none transition-transform duration-700 group-hover:scale-105"
+          />
+        </div>
 
-          {/* Introduction Paragraph */}
-          <p className="text-sm sm:text-base md:text-lg text-ivory/80 leading-relaxed font-sans max-w-2xl mb-8">
-            MANTHAN is a platform dedicated to psychology, philosophy, human understanding and creative expression.
-            We aim to create meaningful spaces for individuals to learn, reflect, question and explore the human experience.
-          </p>
+        {/* Grand Brand Heading with Logo-Accurate Tracking & Champagne Tone */}
+        <h1 className="font-sans text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-[0.22em] text-[#EDD8BD] uppercase pl-[0.22em] mb-3 drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]">
+          MANTHAN
+        </h1>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-3.5 mb-10 pointer-events-auto">
-            <button
-              onClick={() => scrollTo('book')}
-              className="px-6 py-3 rounded-full text-xs sm:text-sm font-semibold text-midnight bg-holo-cyan hover:bg-holo-cyan/90 transition-all duration-300 shadow-[0_0_20px_rgba(79,216,232,0.35)] hover:scale-105 cursor-pointer flex items-center gap-2"
-            >
-              <span>Book an Institutional Session</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
+        {/* Celestial Warm Amber Tagline */}
+        <p className="font-serif italic text-2xl sm:text-3xl md:text-4xl text-amber-200/95 font-normal mb-8">
+          &ldquo;{MANTHAN_CONTENT.tagline}&rdquo;
+        </p>
 
-            <button
-              onClick={() => scrollTo('sessions')}
-              className="px-6 py-3 rounded-full text-xs sm:text-sm font-medium text-lavender border border-lavender/25 hover:border-lavender/55 hover:text-ivory bg-midnight/70 backdrop-blur-md transition-all duration-300 cursor-pointer"
-            >
-              Explore Sessions
-            </button>
-          </div>
+        {/* Introduction Paragraph from Document */}
+        <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-sans max-w-2xl mb-10">
+          {MANTHAN_CONTENT.introduction.lead}
+        </p>
 
-          {/* Brief Sessions Preview */}
-          <div className="w-full pt-4 border-t border-lavender/10">
-            <p className="text-[11px] font-mono tracking-widest uppercase text-lavender/60 mb-3 flex items-center justify-center gap-1.5">
-              <Sparkles className="w-3 h-3 text-holo-cyan" />
-              <span>Available Session Focus Areas</span>
-            </p>
-            <div className="flex flex-wrap justify-center gap-2 max-w-2xl mx-auto">
-              {SESSIONS_DATA.map((session) => (
-                <button
-                  key={session.id}
-                  onClick={() => handleTopicClick(session.id)}
-                  className="px-3 py-1.5 rounded-lg text-[11px] font-mono text-ivory/70 hover:text-holo-cyan border border-white/5 hover:border-holo-cyan/30 bg-white/[0.02] hover:bg-white/[0.06] transition-all cursor-pointer"
-                >
-                  {session.title}
-                </button>
-              ))}
-            </div>
+        {/* Rounded Pill Action Buttons */}
+        <div className="flex flex-wrap items-center justify-center gap-4 mb-14">
+          <button
+            onClick={() => scrollTo('about')}
+            className="btn-primary px-8 py-3.5 text-sm font-bold flex items-center gap-2 cursor-pointer shadow-sm active:scale-95"
+          >
+            <span>Explore Our Work</span>
+            <ArrowDown className="w-4 h-4" />
+          </button>
+
+          <button
+            onClick={() => scrollTo('institutions')}
+            className="btn-secondary px-8 py-3.5 text-sm font-semibold flex items-center gap-2 cursor-pointer active:scale-95"
+          >
+            <Building2 className="w-4 h-4 text-amber-400" />
+            <span>Book an Institutional Session</span>
+          </button>
+        </div>
+
+        {/* Interdisciplinary Fields with Soft Rounded Pills */}
+        <div className="pt-8 border-t border-white/[0.06] w-full flex flex-col items-center">
+          <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider mb-3">
+            Interdisciplinary Inquiry Fields
+          </span>
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-2.5">
+            {MANTHAN_CONTENT.introduction.disciplines.map((item) => (
+              <span
+                key={item}
+                className="px-4 py-1.5 rounded-full text-xs font-mono text-amber-100/90 bg-[#141738]/60 border border-white/[0.07]"
+              >
+                ✦ {item}
+              </span>
+            ))}
           </div>
         </div>
-      </Prismatic>
+      </div>
+
+      {/* 4. Ambient Controls Dock (Soft Rounded Pill) */}
+      <div className="absolute bottom-6 right-6 z-20 flex items-center gap-1.5 p-1.5 rounded-full bg-[#0F112B]/90 border border-white/10 shadow-lg backdrop-blur-md">
+        <button
+          onClick={handleSoundToggle}
+          className={`p-2 rounded-full transition-colors cursor-pointer flex items-center gap-1 text-xs ${
+            soundActive ? 'text-amber-400 bg-amber-950/60' : 'text-slate-400 hover:text-white'
+          }`}
+          aria-label={soundActive ? 'Disable star chimes' : 'Enable star chimes'}
+          title={soundActive ? 'Disable star chimes' : 'Enable star chimes on click'}
+        >
+          {soundActive ? <Bell className="w-4 h-4" /> : <BellOff className="w-4 h-4" />}
+          <span className="hidden sm:inline text-[11px] font-mono pr-1">Chimes</span>
+        </button>
+
+        <span className="w-px h-4 bg-white/10" />
+
+        <button
+          onClick={togglePlay}
+          className="p-2 rounded-full text-slate-400 hover:text-white transition-colors cursor-pointer"
+          aria-label={isPlaying ? 'Pause background video' : 'Play background video'}
+          title={isPlaying ? 'Pause background video' : 'Play background video'}
+        >
+          {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+        </button>
+
+        <button
+          onClick={toggleMute}
+          className="p-2 rounded-full text-slate-400 hover:text-white transition-colors cursor-pointer"
+          aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+          title={isMuted ? 'Unmute video' : 'Mute video'}
+        >
+          {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-amber-400" />}
+        </button>
+      </div>
     </section>
   );
 };

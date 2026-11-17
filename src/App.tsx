@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Lenis from 'lenis';
 import { Navbar } from './components/manthan/Navbar';
 import { Hero } from './components/manthan/Hero';
-import { Sessions } from './components/manthan/Sessions';
-import { BookSession } from './components/manthan/BookSession';
+import { About } from './components/manthan/About';
+import { OurWork } from './components/manthan/OurWork';
+import { Institutions } from './components/manthan/Institutions';
 import { Contact } from './components/manthan/Contact';
 import { Footer } from './components/manthan/Footer';
 
@@ -13,7 +14,7 @@ export const App: React.FC = () => {
   // Smooth inertial scrolling with Lenis
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.1,
+      duration: 1.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
@@ -36,30 +37,33 @@ export const App: React.FC = () => {
     };
   }, []);
 
-  const handleSelectSessionForBooking = (topicTitle: string) => {
+  const handleSelectTopicForBooking = (topicTitle: string) => {
     setSelectedTopic(topicTitle);
   };
 
   return (
-    <div className="bg-midnight text-ivory min-h-screen selection:bg-holo-cyan/20 selection:text-ivory font-sans relative">
-      {/* 2. Main Navigation: Home, Sessions, Book a Session, Contact */}
+    <div className="bg-[#080811] text-[#F8FAFC] min-h-screen selection:bg-amber-400/30 selection:text-white font-sans relative antialiased">
+      {/* 1. Header Navigation */}
       <Navbar />
 
       <main>
-        {/* 3. Home: Introduction, Vortex Canvas, Explore. Understand. Evolve., Primary CTA, Sessions Preview */}
-        <Hero onSelectTopic={handleSelectSessionForBooking} />
+        {/* 2. Background Video & Night Sky Starfield Hero */}
+        <Hero onSelectTopic={handleSelectTopicForBooking} />
 
-        {/* 4. Sessions: Dedicated section with the 6 session areas & intended audiences */}
-        <Sessions onSelectSessionForBooking={handleSelectSessionForBooking} />
+        {/* 3. About Section with 3D Inquiry Sphere */}
+        <About />
 
-        {/* 5. Book a Session: Heading, Enquiry notice, all requested form fields */}
-        <BookSession selectedTopicTitle={selectedTopic} />
+        {/* 4. Our Work: 5 Pillars & Workshop Curriculum */}
+        <OurWork onSelectTopicForBooking={handleSelectTopicForBooking} />
 
-        {/* 6. Contact: Email, Phone, Instagram, LinkedIn, Location */}
+        {/* 5. Bringing MANTHAN to Institutions: Collaboration Console */}
+        <Institutions selectedTopicTitle={selectedTopic} />
+
+        {/* 6. Contact Us: Phone, Email & WhatsApp */}
         <Contact />
       </main>
 
-      {/* Minimal Footer */}
+      {/* 7. Footer */}
       <Footer />
     </div>
   );

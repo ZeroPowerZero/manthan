@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SESSIONS_DATA, CONTACT_INFO } from '../../data/manthanContent';
+import { SESSIONS_DATA, CONTACT_INFO, SessionTopic } from '../../data/manthanContent';
 import { Send, CheckCircle2, AlertCircle, Mail, Phone, Calendar, Users, Building2, User, HelpCircle } from 'lucide-react';
 
 interface BookSessionProps {
@@ -273,7 +273,7 @@ export const BookSession: React.FC<BookSessionProps> = ({ selectedTopicTitle }) 
                   onChange={handleChange}
                   className="w-full px-4 py-2.5 rounded-xl bg-midnight/80 border border-lavender/20 text-ivory text-sm focus:outline-none focus:border-holo-cyan transition-colors"
                 >
-                  {SESSIONS_DATA.map((s) => (
+                  {SESSIONS_DATA.map((s: SessionTopic) => (
                     <option key={s.id} value={s.title} className="bg-midnight text-ivory">
                       {s.title}
                     </option>

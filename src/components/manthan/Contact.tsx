@@ -1,163 +1,224 @@
-import React from 'react';
-import { CONTACT_INFO } from '../../data/manthanContent';
-import { Mail, Phone, MapPin, ArrowUpRight, MessageCircle } from 'lucide-react';
-
-const InstagramIcon: React.FC<{ className?: string }> = ({ className = "w-5 h-5" }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-  </svg>
-);
-
-const LinkedinIcon: React.FC<{ className?: string }> = ({ className = "w-5 h-5" }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-    <rect width="4" height="12" x="2" y="9" />
-    <circle cx="4" cy="4" r="2" />
-  </svg>
-);
+import React, { useState } from 'react';
+import { Mail, Phone, MessageSquare, Send, CheckCircle2, MapPin, ArrowUpRight, Sparkles } from 'lucide-react';
+import { MANTHAN_CONTENT } from '../../data/manthanContent';
 
 export const Contact: React.FC = () => {
+  const [msgForm, setMsgForm] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+  });
+  const [sent, setSent] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSent(true);
+  };
+
   return (
-    <section id="contact" className="relative w-full py-20 sm:py-28 px-5 sm:px-8 bg-midnight-surface/90 border-t border-lavender/10">
-      <div className="max-w-5xl mx-auto">
-        {/* Header */}
-        <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-14">
-          <span className="text-[11px] font-mono tracking-widest text-holo-cyan uppercase mb-3">
-            Get in Touch
-          </span>
-          <h2 className="font-mono text-3xl sm:text-4xl md:text-5xl font-bold text-ivory tracking-tight mb-4">
-            Contact MANTHAN
+    <section id="contact" className="py-24 sm:py-32 bg-[#0A0B1E] relative overflow-hidden border-t border-white/[0.05]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Section Header */}
+        <div className="max-w-3xl mx-auto text-center mb-16">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/[0.03] border border-white/5 text-xs font-mono font-semibold text-amber-300 uppercase tracking-wider mb-4">
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+            <span>{MANTHAN_CONTENT.contact.sectionTitle}</span>
+          </div>
+
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
+            {MANTHAN_CONTENT.contact.headline}
           </h2>
-          <p className="text-sm sm:text-base text-ivory/70 font-sans leading-relaxed">
-            Have questions about our sessions, collaborative formats, or prospective workshops?
-            Reach out through our official channels.
+
+          <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-xl mx-auto">
+            {MANTHAN_CONTENT.contact.description}
           </p>
         </div>
 
-        {/* Contact Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-12">
-          {/* Email */}
-          <a
-            href={`mailto:${CONTACT_INFO.email}`}
-            className="glass-panel glass-panel-hover rounded-2xl p-5 border border-lavender/15 bg-midnight/60 flex flex-col justify-between group cursor-pointer"
-          >
-            <div>
-              <div className="w-10 h-10 rounded-xl bg-holo-cyan/10 border border-holo-cyan/25 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <Mail className="w-5 h-5 text-holo-cyan" />
+        {/* 2-Column Contact Channels & Direct Message */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Left Column: Direct Contact Channels */}
+          <div className="lg:col-span-5 space-y-4">
+            {/* Phone Card */}
+            <a
+              href={`tel:${MANTHAN_CONTENT.contact.phone}`}
+              className="theme-card p-6 flex items-start gap-4 group cursor-pointer block"
+            >
+              <div className="w-11 h-11 rounded-xl bg-white/[0.03] border border-white/5 text-amber-400 flex items-center justify-center flex-shrink-0">
+                <Phone className="w-5 h-5" />
               </div>
-              <span className="text-[10px] font-mono tracking-widest uppercase text-lavender/60 block mb-1">
-                Official Email
-              </span>
-              <p className="text-xs sm:text-sm font-semibold text-ivory group-hover:text-holo-cyan transition-colors break-all">
-                {CONTACT_INFO.email}
-              </p>
-            </div>
-            <div className="flex items-center gap-1 text-[11px] text-holo-cyan font-mono mt-4 pt-3 border-t border-white/5">
-              <span>Send Email</span>
-              <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </div>
-          </a>
-
-          {/* Phone */}
-          <a
-            href={`tel:${CONTACT_INFO.phone}`}
-            className="glass-panel glass-panel-hover rounded-2xl p-5 border border-lavender/15 bg-midnight/60 flex flex-col justify-between group cursor-pointer"
-          >
-            <div>
-              <div className="w-10 h-10 rounded-xl bg-holo-magenta/10 border border-holo-magenta/25 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <Phone className="w-5 h-5 text-holo-magenta" />
+              <div className="flex-1">
+                <span className="text-[11px] font-mono font-semibold uppercase text-slate-500 tracking-wider block">
+                  Direct Phone / Inquiry
+                </span>
+                <p className="text-lg font-bold text-white group-hover:text-amber-400 transition-colors mt-0.5">
+                  {MANTHAN_CONTENT.contact.phoneFormatted}
+                </p>
+                <p className="text-xs text-slate-400 mt-1 font-sans">
+                  Call or WhatsApp for institutional coordination
+                </p>
               </div>
-              <span className="text-[10px] font-mono tracking-widest uppercase text-lavender/60 block mb-1">
-                Direct Line
-              </span>
-              <p className="text-xs sm:text-sm font-semibold text-ivory group-hover:text-holo-magenta transition-colors">
-                {CONTACT_INFO.phone}
-              </p>
-            </div>
-            <div className="flex items-center gap-1 text-[11px] text-holo-magenta font-mono mt-4 pt-3 border-t border-white/5">
-              <span>Call Team</span>
-              <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </div>
-          </a>
+              <ArrowUpRight className="w-4 h-4 text-slate-600 group-hover:text-amber-400 transition-colors" />
+            </a>
 
-          {/* Instagram */}
-          <a
-            href={CONTACT_INFO.instagram}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="glass-panel glass-panel-hover rounded-2xl p-5 border border-lavender/15 bg-midnight/60 flex flex-col justify-between group cursor-pointer"
-          >
-            <div>
-              <div className="w-10 h-10 rounded-xl bg-holo-gold/10 border border-holo-gold/25 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <InstagramIcon className="w-5 h-5 text-holo-gold" />
+            {/* Email Card */}
+            <a
+              href={`mailto:${MANTHAN_CONTENT.contact.email}`}
+              className="theme-card p-6 flex items-start gap-4 group cursor-pointer block"
+            >
+              <div className="w-11 h-11 rounded-xl bg-white/[0.03] border border-white/5 text-amber-400 flex items-center justify-center flex-shrink-0">
+                <Mail className="w-5 h-5" />
               </div>
-              <span className="text-[10px] font-mono tracking-widest uppercase text-lavender/60 block mb-1">
-                Instagram
-              </span>
-              <p className="text-xs sm:text-sm font-semibold text-ivory group-hover:text-holo-gold transition-colors">
-                {CONTACT_INFO.instagramHandle}
-              </p>
-            </div>
-            <div className="flex items-center gap-1 text-[11px] text-holo-gold font-mono mt-4 pt-3 border-t border-white/5">
-              <span>Visit Profile</span>
-              <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </div>
-          </a>
-
-          {/* LinkedIn */}
-          <a
-            href={CONTACT_INFO.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="glass-panel glass-panel-hover rounded-2xl p-5 border border-lavender/15 bg-midnight/60 flex flex-col justify-between group cursor-pointer"
-          >
-            <div>
-              <div className="w-10 h-10 rounded-xl bg-holo-cyan/10 border border-holo-cyan/25 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <LinkedinIcon className="w-5 h-5 text-holo-cyan" />
+              <div className="flex-1">
+                <span className="text-[11px] font-mono font-semibold uppercase text-slate-500 tracking-wider block">
+                  Official Email
+                </span>
+                <p className="text-base sm:text-lg font-bold text-white group-hover:text-amber-400 transition-colors mt-0.5 break-all">
+                  {MANTHAN_CONTENT.contact.email}
+                </p>
+                <p className="text-xs text-slate-400 mt-1 font-sans">
+                  Proposals, workshop briefs & general correspondence
+                </p>
               </div>
-              <span className="text-[10px] font-mono tracking-widest uppercase text-lavender/60 block mb-1">
-                LinkedIn
-              </span>
-              <p className="text-xs sm:text-sm font-semibold text-ivory group-hover:text-holo-cyan transition-colors">
-                {CONTACT_INFO.linkedinHandle}
-              </p>
-            </div>
-            <div className="flex items-center gap-1 text-[11px] text-holo-cyan font-mono mt-4 pt-3 border-t border-white/5">
-              <span>Connect</span>
-              <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </div>
-          </a>
-        </div>
+              <ArrowUpRight className="w-4 h-4 text-slate-600 group-hover:text-amber-400 transition-colors" />
+            </a>
 
-        {/* Location & Outreach Note */}
-        <div className="p-5 sm:p-6 rounded-2xl border border-lavender/15 bg-midnight/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 shrink-0">
-              <MapPin className="w-5 h-5 text-holo-cyan" />
-            </div>
-            <div>
-              <span className="text-[11px] font-mono uppercase tracking-wider text-lavender/60 block">
-                Session Outreach & Footprint
-              </span>
-              <p className="text-xs sm:text-sm text-ivory font-medium mt-0.5">
-                {CONTACT_INFO.location}
+            {/* WhatsApp Quick Connect */}
+            <a
+              href={MANTHAN_CONTENT.contact.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="theme-card p-6 flex items-start gap-4 group cursor-pointer block"
+            >
+              <div className="w-11 h-11 rounded-xl bg-white/[0.03] border border-white/5 text-emerald-400 flex items-center justify-center flex-shrink-0">
+                <MessageSquare className="w-5 h-5" />
+              </div>
+              <div className="flex-1">
+                <span className="text-[11px] font-mono font-semibold uppercase text-slate-500 tracking-wider block">
+                  Instant Messaging
+                </span>
+                <p className="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors mt-0.5">
+                  WhatsApp Support
+                </p>
+                <p className="text-xs text-slate-400 mt-1 font-sans">
+                  Direct inquiry & scheduling
+                </p>
+              </div>
+              <ArrowUpRight className="w-4 h-4 text-slate-600 group-hover:text-emerald-400 transition-colors" />
+            </a>
+
+            {/* Geographic Scope */}
+            <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/5 text-xs text-slate-300 space-y-2">
+              <div className="flex items-center gap-2 text-white font-bold">
+                <MapPin className="w-4 h-4 text-amber-400" />
+                <span>Geographic Scope & Delivery</span>
+              </div>
+              <p className="text-xs text-slate-400 leading-relaxed font-sans">
+                MANTHAN organizes in-person summits, on-campus workshop sessions, and virtual interactive modules for schools, colleges and universities across India.
               </p>
             </div>
           </div>
 
-          <a
-            href="#book"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById('book')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="shrink-0 px-4 py-2 rounded-xl text-xs font-semibold text-lavender hover:text-ivory bg-white/5 hover:bg-white/10 border border-lavender/20 transition-all flex items-center gap-1.5 cursor-pointer"
-          >
-            <MessageCircle className="w-3.5 h-3.5 text-holo-cyan" />
-            <span>Enquire for your City</span>
-          </a>
+          {/* Right Column: Direct Message Form with Soft Inputs */}
+          <div className="lg:col-span-7 theme-card p-6 sm:p-8">
+            <h3 className="text-xl font-bold text-white mb-1">
+              Send a Direct Message
+            </h3>
+            <p className="text-xs text-slate-400 mb-6">
+              Have a question, feedback, or collaborative idea to share? Write to us directly.
+            </p>
+
+            {sent ? (
+              <div className="py-12 text-center">
+                <div className="w-14 h-14 rounded-full bg-emerald-950/70 text-emerald-400 mx-auto flex items-center justify-center mb-4 border border-emerald-500/20">
+                  <CheckCircle2 className="w-7 h-7" />
+                </div>
+                <h4 className="text-xl font-bold text-white mb-2">
+                  Message Prepared
+                </h4>
+                <p className="text-xs text-slate-300 max-w-sm mx-auto mb-6">
+                  Thank you for reaching out to MANTHAN. Our team will review your message and reply via email shortly.
+                </p>
+                <a
+                  href={`mailto:${MANTHAN_CONTENT.contact.email}?subject=${encodeURIComponent(msgForm.subject || 'Inquiry')}&body=${encodeURIComponent(msgForm.message)}`}
+                  className="inline-flex items-center gap-2 px-7 py-3 rounded-full text-xs font-bold btn-primary"
+                >
+                  <Mail className="w-4 h-4" />
+                  <span>Send via Email Client</span>
+                </a>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-slate-300">
+                      Your Name
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Ananya Sharma"
+                      value={msgForm.name}
+                      onChange={(e) => setMsgForm({ ...msgForm, name: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl bg-[#121538] border border-white/10 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-400"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-slate-300">
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      placeholder="e.g. ananya@gmail.com"
+                      value={msgForm.email}
+                      onChange={(e) => setMsgForm({ ...msgForm, email: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl bg-[#121538] border border-white/10 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-400"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-300">
+                    Subject / Topic
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Inquiry regarding Youth Cultural Exchange"
+                    value={msgForm.subject}
+                    onChange={(e) => setMsgForm({ ...msgForm, subject: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl bg-[#121538] border border-white/10 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-400"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-bold text-slate-300">
+                    Your Message
+                  </label>
+                  <textarea
+                    rows={4}
+                    required
+                    placeholder="Tell us what you'd like to explore, discuss, or inquire about..."
+                    value={msgForm.message}
+                    onChange={(e) => setMsgForm({ ...msgForm, message: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl bg-[#121538] border border-white/10 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 resize-none"
+                  />
+                </div>
+
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    className="px-8 py-3.5 rounded-full text-xs font-bold btn-primary flex items-center justify-center gap-2 cursor-pointer shadow"
+                  >
+                    <Send className="w-4 h-4" />
+                    <span>Send Message</span>
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
         </div>
       </div>
     </section>

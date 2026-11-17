@@ -53,7 +53,7 @@ export const Sessions: React.FC<SessionsProps> = ({ onSelectSessionForBooking })
 
         {/* Sessions Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {SESSIONS_DATA.map((session, index) => (
+          {SESSIONS_DATA.map((session: SessionTopic, index: number) => (
             <div
               key={session.id}
               className="glass-panel glass-panel-hover rounded-2xl p-6 flex flex-col justify-between border border-lavender/15 bg-midnight/60 hover:bg-midnight/90 transition-all duration-300 group"
@@ -92,7 +92,7 @@ export const Sessions: React.FC<SessionsProps> = ({ onSelectSessionForBooking })
 
                 {/* Key focus tags */}
                 <div className="flex flex-wrap gap-1.5 mb-6">
-                  {session.keyAreas.map((area) => (
+                  {session.keyAreas.map((area: string) => (
                     <span
                       key={area}
                       className="px-2 py-0.5 rounded text-[10px] font-mono bg-white/[0.03] border border-white/5 text-ivory-dim"
