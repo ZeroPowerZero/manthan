@@ -9,25 +9,23 @@ export default {
     extend: {
       colors: {
         theme: {
-          bg: '#0A0B1E',              // Deep Cosmic Midnight Indigo (exact logo canvas)
-          surface: '#0F112B',         // Deep celestial surface
-          card: '#141738',            // Soft midnight card layer
-          border: 'rgba(255, 255, 255, 0.07)',
-          'border-light': 'rgba(255, 255, 255, 0.12)',
-          primary: '#F59E0B',         // Radiant Star Gold / Amber
-          'primary-hover': '#FBBF24',
-          champagne: '#EDD8BD',       // Logo Wordmark Warm Champagne Sand
-          cyan: '#22D3EE',            // Swirling Azure Arc
-          teal: '#06B6D4',
-          violet: '#818CF8',          // Swirling Cosmic Indigo / Violet Arc
-          purple: '#A855F7',
-          gold: '#FDE68A',            // Golden Starlight
+          bg: '#000000',              // Jet Black Sky
+          surface: '#080808',         // Deep obsidian surface
+          card: '#0D0D0D',            // High-contrast jet black card
+          border: 'rgba(250, 204, 21, 0.15)',
+          'border-light': 'rgba(250, 204, 21, 0.3)',
+          primary: '#FACC15',         // Bold Warm Yellow
+          'primary-hover': '#EAB308',  // Rich Golden Yellow
+          yellow: '#FACC15',          // Signature Warm Yellow
+          gold: '#FDE047',            // Radiant Starlight
+          'warm-white': '#FFFDF5',    // Stellar Warm White
         },
       },
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-        serif: ['"Cormorant Garamond"', 'Playfair Display', 'Georgia', 'serif'],
-        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+        display: ['"Cinzel"', 'serif'],
+        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+        sans: ['"Outfit"', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        mono: ['"Space Grotesk"', 'ui-monospace', 'monospace'],
       },
     },
   },

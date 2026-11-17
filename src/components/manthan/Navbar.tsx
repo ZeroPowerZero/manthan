@@ -40,8 +40,8 @@ export const Navbar: React.FC = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-[#0A0B1E]/95 backdrop-blur-md border-b border-white/[0.06] shadow-xl py-3'
-          : 'bg-[#0A0B1E]/80 backdrop-blur-sm border-b border-white/[0.03] py-4'
+          ? 'bg-black/75 backdrop-blur-xl shadow-2xl py-3'
+          : 'bg-transparent py-4'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -59,17 +59,17 @@ export const Navbar: React.FC = () => {
             <img
               src="/manthan-emblem-transparent.png"
               alt="MANTHAN Emblem"
-              className="w-full h-full object-contain drop-shadow-[0_0_12px_rgba(251,191,36,0.35)] group-hover:scale-105 transition-transform duration-300"
+              className="w-full h-full object-contain theme-logo-filter group-hover:scale-105 transition-transform duration-300"
             />
           </div>
 
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
-              <span className="font-sans text-lg sm:text-xl font-black tracking-[0.2em] text-[#EDD8BD] group-hover:text-amber-300 transition-colors uppercase">
+              <span className="font-display text-lg sm:text-xl font-bold tracking-[0.22em] text-[#FFFDF5] group-hover:text-yellow-400 transition-colors uppercase">
                 MANTHAN
               </span>
             </div>
-            <span className="text-[11px] text-amber-200/70 font-serif italic hidden sm:inline -mt-0.5">
+            <span className="text-[11px] text-yellow-400/90 font-serif italic hidden sm:inline -mt-0.5">
               Celebrating the Art of Being Human
             </span>
           </div>
@@ -85,7 +85,7 @@ export const Navbar: React.FC = () => {
                 e.preventDefault();
                 handleNavClick(link.href);
               }}
-              className="text-sm font-medium text-slate-300 hover:text-amber-300 transition-colors duration-150 cursor-pointer"
+              className="text-sm font-medium text-slate-300 hover:text-yellow-400 transition-colors duration-150 cursor-pointer"
             >
               {link.label}
             </a>
@@ -96,15 +96,15 @@ export const Navbar: React.FC = () => {
         <div className="hidden sm:flex items-center gap-4">
           <a
             href={`tel:${MANTHAN_CONTENT.contact.phone}`}
-            className="flex items-center gap-1.5 text-xs font-semibold text-slate-300 hover:text-amber-300 px-3 py-1.5 rounded-full hover:bg-white/[0.04] transition-colors"
+            className="flex items-center gap-1.5 text-xs font-semibold text-slate-300 hover:text-yellow-400 px-3 py-1.5 rounded-full hover:bg-white/[0.04] transition-colors"
           >
-            <Phone className="w-3.5 h-3.5 text-amber-400" />
+            <Phone className="w-3.5 h-3.5 text-yellow-400" />
             <span>{MANTHAN_CONTENT.contact.phoneFormatted}</span>
           </a>
 
           <button
             onClick={() => handleNavClick('#institutions')}
-            className="btn-primary flex items-center gap-1.5 px-5 py-2 text-xs font-bold active:scale-95 transition-all cursor-pointer shadow-sm rounded-full"
+            className="btn-primary flex items-center gap-1.5 px-5 py-2 text-xs font-extrabold active:scale-95 transition-all cursor-pointer shadow-md rounded-full"
           >
             <span>Book a Session</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
@@ -114,7 +114,7 @@ export const Navbar: React.FC = () => {
         {/* Mobile Hamburger Button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-full text-slate-300 hover:text-white hover:bg-white/[0.05] focus:outline-none cursor-pointer"
+          className="md:hidden p-2 rounded-full text-slate-300 hover:text-yellow-400 hover:bg-white/[0.05] focus:outline-none cursor-pointer"
           aria-label="Toggle Navigation"
         >
           {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -123,8 +123,8 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#0F112B]/95 backdrop-blur-xl border-b border-white/[0.08] px-6 py-6 flex flex-col gap-4 shadow-2xl">
-          <div className="flex flex-col gap-2 pb-4 border-b border-white/[0.06]">
+        <div className="md:hidden bg-black/98 backdrop-blur-xl border-b border-yellow-500/20 px-6 py-6 flex flex-col gap-4 shadow-2xl">
+          <div className="flex flex-col gap-2 pb-4 border-b border-white/[0.08]">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -133,7 +133,7 @@ export const Navbar: React.FC = () => {
                   e.preventDefault();
                   handleNavClick(link.href);
                 }}
-                className="text-base font-semibold text-slate-200 hover:text-amber-300 py-1.5 transition-colors cursor-pointer"
+                className="text-base font-semibold text-slate-200 hover:text-yellow-400 py-1.5 transition-colors cursor-pointer"
               >
                 {link.label}
               </a>
@@ -145,13 +145,13 @@ export const Navbar: React.FC = () => {
               href={`tel:${MANTHAN_CONTENT.contact.phone}`}
               className="text-xs font-medium text-slate-300 flex items-center gap-2"
             >
-              <Phone className="w-4 h-4 text-amber-400" />
+              <Phone className="w-4 h-4 text-yellow-400" />
               <span>{MANTHAN_CONTENT.contact.phoneFormatted}</span>
             </a>
 
             <button
               onClick={() => handleNavClick('#institutions')}
-              className="w-full flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-bold btn-primary cursor-pointer shadow rounded-full"
+              className="w-full flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-extrabold btn-primary cursor-pointer shadow rounded-full"
             >
               <span>Book an Institutional Session</span>
               <ArrowUpRight className="w-4 h-4" />

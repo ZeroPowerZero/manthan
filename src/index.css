@@ -7,74 +7,115 @@
 }
 
 body {
-  background-color: #0A0B1E;
+  background-color: #000000;
   color: #F8FAFC;
-  font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  letter-spacing: -0.02em;
+/* Cosmic & Philosophical Typography: Monumental Inscriptional Headers */
+h1 {
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.16em;
 }
 
-/* Soft, Clean, Rounded Celestial Cards (No Sharp Borders) */
+h2, h3 {
+  font-family: 'Cinzel', 'Cormorant Garamond', serif;
+  letter-spacing: 0.03em;
+}
+
+h4, h5, h6 {
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: -0.01em;
+}
+
+/* Warm Yellow & Jet Black Theme System (No Gradients) */
+
+/* Warm Yellow & Stellar White Logo Theme Filters */
+.theme-logo-filter {
+  filter: brightness(1.08) contrast(1.12) drop-shadow(0 0 14px rgba(250, 204, 21, 0.45));
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.theme-logo-filter:hover {
+  filter: brightness(1.22) contrast(1.18) drop-shadow(0 0 24px rgba(250, 204, 21, 0.75));
+}
+
+.filter-warm-theme {
+  filter: sepia(100%) saturate(380%) hue-rotate(5deg) brightness(1.1) contrast(1.12) drop-shadow(0 0 12px rgba(250, 204, 21, 0.45));
+}
+
+/* Warm Solar Yellow Video Filter: Harmonizes cosmic video into warm yellow & black */
+.video-yellow-filter {
+  filter: sepia(100%) hue-rotate(5deg) saturate(380%) contrast(125%) brightness(95%);
+}
+
+/* Ethereal Floating Space Surfaces (No Strict Borders — Text Floats in Deep Space) */
 .theme-card {
-  background-color: #0F112B;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 1.25rem;
-  transition: all 0.25s ease-in-out;
+  background: rgba(10, 10, 10, 0.45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.85);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .theme-card:hover {
-  border-color: rgba(245, 158, 11, 0.3);
-  background-color: #141738;
+  background: rgba(16, 16, 16, 0.65);
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.95), 0 0 35px rgba(250, 204, 21, 0.08);
+  transform: translateY(-3px);
 }
 
-/* Smooth Rounded Pill Buttons */
+/* Solid Bold Warm Yellow Primary Button */
 .btn-primary {
-  background-color: #F59E0B;
-  color: #0A0B1E;
+  background-color: #FACC15;
+  color: #000000;
+  font-weight: 800;
+  border-radius: 9999px;
+  box-shadow: 0 4px 20px -2px rgba(250, 204, 21, 0.4);
+  transition: all 0.15s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #EAB308;
+  box-shadow: 0 6px 28px rgba(250, 204, 21, 0.6);
+  transform: translateY(-1px);
+}
+
+/* Solid Dark Secondary Button with Warm Yellow Border */
+.btn-secondary {
+  background-color: #0D0D0D;
+  color: #FACC15;
+  border: 1px solid rgba(250, 204, 21, 0.35);
   font-weight: 700;
   border-radius: 9999px;
   transition: all 0.15s ease-in-out;
 }
 
-.btn-primary:hover {
-  background-color: #FBBF24;
-}
-
-.btn-secondary {
-  background-color: #101332;
-  color: #EDD8BD;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  font-weight: 600;
-  border-radius: 9999px;
-  transition: all 0.15s ease-in-out;
-}
-
 .btn-secondary:hover {
-  background-color: #171A42;
-  border-color: rgba(245, 158, 11, 0.4);
+  background-color: #171717;
+  border-color: #FACC15;
   color: #FFFFFF;
+  box-shadow: 0 0 20px rgba(250, 204, 21, 0.25);
+  transform: translateY(-1px);
 }
 
-/* Star-themed Scrollbar */
+/* Star-themed Pure Black Scrollbar */
 ::-webkit-scrollbar {
   width: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0A0B1E;
+  background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #181B3E;
+  background: #1C1C1C;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #252A5E;
+  background: #FACC15;
 }

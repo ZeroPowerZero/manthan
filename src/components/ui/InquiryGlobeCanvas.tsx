@@ -13,35 +13,35 @@ const DOMAINS: DomainNode[] = [
   {
     name: 'Mind & Consciousness',
     question: 'How does inner experience arise and shape reality?',
-    color: '#38BDF8',
+    color: '#FFFDF5',
     theta: 0.8,
     phi: 0.4,
   },
   {
     name: 'Philosophy & Logic',
     question: 'What are the assumptions guiding how we think and live?',
-    color: '#FBBF24',
+    color: '#FACC15',
     theta: 2.1,
     phi: -0.3,
   },
   {
     name: 'Emotions & Identity',
     question: 'Who are we beneath social conditioning and expectation?',
-    color: '#F43F5E',
+    color: '#F59E0B',
     theta: 3.6,
     phi: 0.5,
   },
   {
     name: 'Creative Expression',
     question: 'How do art and performance give voice to what words cannot?',
-    color: '#C084FC',
+    color: '#FEF08A',
     theta: 4.8,
     phi: -0.4,
   },
   {
     name: 'Society & Existence',
     question: 'How do relationships, culture, and meaning sustain human life?',
-    color: '#34D399',
+    color: '#EAB308',
     theta: 1.5,
     phi: -0.7,
   },
@@ -81,25 +81,25 @@ export const InquiryGlobeCanvas: React.FC = () => {
     const sphereRadius = 80;
     const sphereGeo = new THREE.IcosahedronGeometry(sphereRadius, 3);
     const wireframeMat = new THREE.MeshBasicMaterial({
-      color: 0x38bdf8,
+      color: 0xfacc15,
       wireframe: true,
       transparent: true,
-      opacity: 0.12,
+      opacity: 0.16,
     });
     const wireframeSphere = new THREE.Mesh(sphereGeo, wireframeMat);
     globeGroup.add(wireframeSphere);
 
-    // 2. Inner Glowing Core
+    // 2. Inner Glowing Core (Warm White Starlight)
     const coreGeo = new THREE.SphereGeometry(18, 24, 24);
     const coreMat = new THREE.MeshBasicMaterial({
-      color: 0xfbbf24,
+      color: 0xfffdf5,
       transparent: true,
-      opacity: 0.45,
+      opacity: 0.55,
     });
     const coreMesh = new THREE.Mesh(coreGeo, coreMat);
     globeGroup.add(coreMesh);
 
-    // 3. Orbital Rings
+    // 3. Orbital Rings (Warm Yellow / Gold)
     const createRing = (radius: number, rotX: number, rotY: number, color: number) => {
       const ringGeo = new THREE.RingGeometry(radius - 0.5, radius + 0.5, 64);
       const ringMat = new THREE.MeshBasicMaterial({
@@ -114,8 +114,8 @@ export const InquiryGlobeCanvas: React.FC = () => {
       globeGroup.add(ring);
     };
 
-    createRing(sphereRadius * 1.15, Math.PI / 3, 0.4, 0x38bdf8);
-    createRing(sphereRadius * 1.25, -Math.PI / 4, 0.8, 0xc084fc);
+    createRing(sphereRadius * 1.15, Math.PI / 3, 0.4, 0xfacc15);
+    createRing(sphereRadius * 1.25, -Math.PI / 4, 0.8, 0xfef08a);
 
     // 4. Luminous Nodes on Sphere Surface
     const nodeMeshes: { mesh: THREE.Mesh; data: DomainNode }[] = [];
@@ -249,7 +249,7 @@ export const InquiryGlobeCanvas: React.FC = () => {
       />
 
       {/* Floating Interactive Active Node Indicator */}
-      <div className="absolute -bottom-4 inset-x-2 sm:inset-x-6 p-4 rounded-2xl bg-[#0F112B]/90 backdrop-blur-md border border-white/[0.08] shadow-2xl text-center z-20 transition-all duration-300">
+      <div className="absolute -bottom-4 inset-x-2 sm:inset-x-6 p-4 rounded-2xl bg-[#0A0A0A]/95 backdrop-blur-md border border-yellow-500/20 shadow-2xl text-center z-20 transition-all duration-300">
         <div className="flex items-center justify-center gap-2 mb-1">
           <span
             className="w-2.5 h-2.5 rounded-full animate-ping"

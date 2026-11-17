@@ -21,9 +21,9 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="w-full bg-[#070817] border-t border-white/[0.06] py-16 px-4 sm:px-6 lg:px-8 text-slate-400 font-sans text-xs">
+    <footer className="w-full bg-black/40 backdrop-blur-md pt-20 pb-16 px-4 sm:px-6 lg:px-8 text-slate-400 font-sans text-xs relative z-10">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-white/[0.06]">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12">
           {/* Col 1: Brand Info */}
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
@@ -31,14 +31,14 @@ export const Footer: React.FC = () => {
                 <img
                   src="/manthan-emblem-transparent.png"
                   alt="MANTHAN Emblem"
-                  className="w-full h-full object-contain drop-shadow-[0_0_10px_rgba(251,191,36,0.3)]"
+                  className="w-full h-full object-contain theme-logo-filter"
                 />
               </div>
               <div className="flex flex-col">
-                <span className="font-sans text-lg font-black text-[#EDD8BD] tracking-[0.2em] uppercase">
+                <span className="font-display text-lg font-bold text-[#FFFDF5] tracking-[0.22em] uppercase">
                   MANTHAN
                 </span>
-                <span className="text-[11px] font-serif italic text-amber-300 -mt-0.5">
+                <span className="text-[11px] font-serif italic text-yellow-400/90 -mt-0.5">
                   Celebrating the Art of Being Human
                 </span>
               </div>
@@ -48,21 +48,21 @@ export const Footer: React.FC = () => {
               MANTHAN is a youth-led interdisciplinary cultural initiative exploring psychology, philosophy, science, research, art, performance, and dialogue.
             </p>
 
-            <div className="pt-1 text-xs text-amber-300/80 font-medium">
+            <div className="pt-1 text-xs text-yellow-400/80 font-medium font-mono">
               ✦ Bringing inquiry and dialogue to schools, colleges and universities across India.
             </div>
           </div>
 
           {/* Col 2: Navigation Links */}
           <div className="md:col-span-3 space-y-3">
-            <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-200 block">
+            <span className="text-xs font-mono font-bold uppercase tracking-wider text-yellow-400 block">
               Navigation
             </span>
             <ul className="space-y-2 text-xs">
               <li>
                 <button
                   onClick={() => scrollTo('home')}
-                  className="hover:text-amber-300 transition-colors cursor-pointer"
+                  className="hover:text-yellow-400 transition-colors cursor-pointer"
                 >
                   Home
                 </button>
@@ -70,7 +70,7 @@ export const Footer: React.FC = () => {
               <li>
                 <button
                   onClick={() => scrollTo('about')}
-                  className="hover:text-amber-300 transition-colors cursor-pointer"
+                  className="hover:text-yellow-400 transition-colors cursor-pointer"
                 >
                   About MANTHAN (Who We Are)
                 </button>
@@ -78,7 +78,7 @@ export const Footer: React.FC = () => {
               <li>
                 <button
                   onClick={() => scrollTo('work')}
-                  className="hover:text-amber-300 transition-colors cursor-pointer"
+                  className="hover:text-yellow-400 transition-colors cursor-pointer"
                 >
                   Our Work & Workshops
                 </button>
@@ -86,7 +86,7 @@ export const Footer: React.FC = () => {
               <li>
                 <button
                   onClick={() => scrollTo('institutions')}
-                  className="hover:text-amber-300 transition-colors cursor-pointer"
+                  className="hover:text-yellow-400 transition-colors cursor-pointer"
                 >
                   Bringing MANTHAN to Institutions
                 </button>
@@ -94,7 +94,7 @@ export const Footer: React.FC = () => {
               <li>
                 <button
                   onClick={() => scrollTo('contact')}
-                  className="hover:text-amber-300 transition-colors cursor-pointer"
+                  className="hover:text-yellow-400 transition-colors cursor-pointer"
                 >
                   Contact Us
                 </button>
@@ -104,24 +104,24 @@ export const Footer: React.FC = () => {
 
           {/* Col 3: Direct Official Communication */}
           <div className="md:col-span-4 space-y-3">
-            <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-200 block">
+            <span className="text-xs font-mono font-bold uppercase tracking-wider text-yellow-400 block">
               Official Communication
             </span>
             <div className="space-y-2.5 text-xs text-slate-300">
               <div className="flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
+                <Phone className="w-3.5 h-3.5 text-yellow-400 flex-shrink-0" />
                 <a
                   href={`tel:${MANTHAN_CONTENT.contact.phone}`}
-                  className="hover:text-amber-300 font-medium"
+                  className="hover:text-yellow-400 font-medium"
                 >
                   {MANTHAN_CONTENT.contact.phoneFormatted}
                 </a>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
+                <Mail className="w-3.5 h-3.5 text-yellow-400 flex-shrink-0" />
                 <a
                   href={`mailto:${MANTHAN_CONTENT.contact.email}`}
-                  className="hover:text-amber-300 font-medium break-all"
+                  className="hover:text-yellow-400 font-medium break-all"
                 >
                   {MANTHAN_CONTENT.contact.email}
                 </a>
@@ -131,7 +131,7 @@ export const Footer: React.FC = () => {
             <div className="pt-3">
               <button
                 onClick={() => scrollTo('institutions')}
-                className="btn-primary px-5 py-2.5 text-xs font-bold cursor-pointer shadow-sm inline-flex items-center gap-1.5 rounded-full"
+                className="btn-primary px-5 py-2.5 text-xs font-extrabold cursor-pointer shadow-md inline-flex items-center gap-1.5 rounded-full"
               >
                 <span>Book an Institutional Session</span>
               </button>
@@ -152,10 +152,10 @@ export const Footer: React.FC = () => {
 
             <button
               onClick={scrollToTop}
-              className="p-2.5 rounded-full bg-[#121538] hover:bg-[#181C48] text-slate-300 hover:text-white border border-white/10 transition-all cursor-pointer shadow-sm"
+              className="p-2.5 rounded-full bg-white/[0.05] hover:bg-yellow-400 hover:text-black text-yellow-400 transition-all cursor-pointer shadow-lg"
               aria-label="Back to top"
             >
-              <ArrowUp className="w-4 h-4 text-amber-400" />
+              <ArrowUp className="w-4 h-4 text-yellow-400" />
             </button>
           </div>
         </div>

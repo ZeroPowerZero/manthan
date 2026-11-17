@@ -54,30 +54,30 @@ export const OurWork: React.FC<OurWorkProps> = ({ onSelectTopicForBooking }) => 
   };
 
   return (
-    <section id="work" className="py-24 sm:py-32 bg-[#0A0B1E] relative overflow-hidden border-t border-white/[0.05]">
+    <section id="work" className="py-28 sm:py-36 bg-transparent relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/[0.03] border border-white/5 text-xs font-mono font-semibold text-amber-300 uppercase tracking-wider mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-yellow-400/10 text-xs font-mono font-bold text-yellow-400 uppercase tracking-widest mb-4">
+            <Sparkles className="w-3.5 h-3.5 text-yellow-400" />
             <span>{MANTHAN_CONTENT.ourWork.sectionTitle}</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-6">
-            Connecting Knowledge, Dialogue & Creative Expression
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-wide mb-6">
+            Connecting <span className="text-yellow-400 font-serif italic font-normal">Knowledge</span>, <span className="text-white">Dialogue</span> &amp; <span className="text-yellow-400 font-serif italic font-normal">Creative Expression</span>
           </h2>
 
           <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">
             {MANTHAN_CONTENT.ourWork.lead}
           </p>
 
-          {/* Soft Rounded Tab Toggles */}
-          <div className="inline-flex p-1 bg-[#0F112B] rounded-full mt-8 border border-white/[0.06]">
+          {/* Floating Pill Tab Toggles */}
+          <div className="inline-flex p-1 bg-black/40 backdrop-blur-xl rounded-full mt-8 shadow-2xl">
             <button
               onClick={() => setActiveTab('pillars')}
               className={`px-6 py-2.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
                 activeTab === 'pillars'
-                  ? 'bg-amber-500 text-slate-950 shadow-sm'
+                  ? 'bg-yellow-400 text-black shadow-[0_0_20px_rgba(250,204,21,0.5)]'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
@@ -87,7 +87,7 @@ export const OurWork: React.FC<OurWorkProps> = ({ onSelectTopicForBooking }) => 
               onClick={() => setActiveTab('workshops')}
               className={`px-6 py-2.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
                 activeTab === 'workshops'
-                  ? 'bg-amber-500 text-slate-950 shadow-sm'
+                  ? 'bg-yellow-400 text-black shadow-[0_0_20px_rgba(250,204,21,0.5)]'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
@@ -105,22 +105,22 @@ export const OurWork: React.FC<OurWorkProps> = ({ onSelectTopicForBooking }) => 
                 <div
                   key={pillar.id}
                   className={`theme-card p-8 flex flex-col justify-between ${
-                    isFeatured ? 'md:col-span-2 lg:col-span-2 bg-[#121538]' : ''
+                    isFeatured ? 'md:col-span-2 lg:col-span-2' : ''
                   }`}
                 >
                   <div>
                     {/* Top Bar with Number & Icon */}
                     <div className="flex items-center justify-between mb-6">
-                      <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5">
+                      <div className="p-3 rounded-2xl bg-white/[0.04]">
                         {getPillarIcon(pillar.icon)}
                       </div>
-                      <span className="text-xs font-mono font-bold text-amber-400/80 bg-white/[0.03] px-3 py-1 rounded-full">
+                      <span className="text-xs font-mono font-bold text-yellow-400 bg-yellow-400/10 px-3 py-1 rounded-full">
                         0{index + 1}
                       </span>
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">
+                    <h3 className="font-display text-xl sm:text-2xl font-bold text-white mb-3">
                       {pillar.title}
                     </h3>
 
@@ -131,16 +131,16 @@ export const OurWork: React.FC<OurWorkProps> = ({ onSelectTopicForBooking }) => 
 
                     {/* Highlights list with soft rounded pills */}
                     <div className="space-y-2 mb-6">
-                      <span className="text-[11px] font-mono font-semibold tracking-wider text-slate-400 uppercase block">
+                      <span className="text-[11px] font-mono font-semibold tracking-wider text-yellow-400/80 uppercase block">
                         Core Dimensions:
                       </span>
                       <div className="flex flex-wrap gap-2">
                         {pillar.highlights.map((item) => (
                           <span
                             key={item}
-                            className="inline-flex items-center gap-1.5 text-xs text-amber-100/90 bg-white/[0.03] border border-white/5 px-3 py-1 rounded-full"
+                            className="inline-flex items-center gap-1.5 text-xs text-yellow-200/90 bg-white/[0.04] px-3.5 py-1 rounded-full"
                           >
-                            <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
+                            <CheckCircle2 className="w-3.5 h-3.5 text-yellow-400 flex-shrink-0" />
                             <span>{item}</span>
                           </span>
                         ))}
@@ -149,13 +149,13 @@ export const OurWork: React.FC<OurWorkProps> = ({ onSelectTopicForBooking }) => 
                   </div>
 
                   {isFeatured && (
-                    <div className="pt-4 border-t border-white/5 flex flex-wrap items-center justify-between gap-4">
+                    <div className="pt-6 flex flex-wrap items-center justify-between gap-4">
                       <span className="text-xs text-slate-400 font-medium">
                         Open for Schools, Colleges & Universities across India.
                       </span>
                       <button
                         onClick={() => setActiveTab('workshops')}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-400 hover:text-amber-300 cursor-pointer"
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-yellow-400 hover:text-yellow-300 cursor-pointer"
                       >
                         <span>Explore Detailed Session Topics</span>
                         <ArrowRight className="w-3.5 h-3.5" />
@@ -172,7 +172,7 @@ export const OurWork: React.FC<OurWorkProps> = ({ onSelectTopicForBooking }) => 
         {activeTab === 'workshops' && (
           <div className="theme-card p-6 sm:p-10">
             <div className="max-w-2xl mb-8">
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-amber-400">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-yellow-400">
                 Pillar 01 Curriculum
               </span>
               <h3 className="text-2xl sm:text-3xl font-bold text-white mt-1 mb-2">
@@ -192,14 +192,14 @@ export const OurWork: React.FC<OurWorkProps> = ({ onSelectTopicForBooking }) => 
                     <button
                       key={ws.id}
                       onClick={() => setSelectedWorkshop(ws)}
-                      className={`w-full text-left p-4 rounded-xl border transition-all flex items-center justify-between cursor-pointer ${
+                      className={`w-full text-left p-4 rounded-2xl transition-all flex items-center justify-between cursor-pointer ${
                         isSelected
-                          ? 'bg-amber-950/40 border-amber-500/40 text-white'
-                          : 'bg-[#121538] border-white/5 hover:bg-[#161a46] text-slate-300'
+                          ? 'bg-yellow-400/15 text-white shadow-lg'
+                          : 'bg-white/[0.03] hover:bg-white/[0.06] text-slate-300'
                       }`}
                     >
                       <div className="flex items-center gap-3">
-                        <span className="text-xs font-mono font-bold text-amber-400/80">
+                        <span className="text-xs font-mono font-bold text-yellow-400">
                           0{i + 1}
                         </span>
                         <span className="text-sm font-semibold">
@@ -208,7 +208,7 @@ export const OurWork: React.FC<OurWorkProps> = ({ onSelectTopicForBooking }) => 
                       </div>
                       <ChevronRight
                         className={`w-4 h-4 transition-transform ${
-                          isSelected ? 'text-amber-400 translate-x-1' : 'text-slate-600'
+                          isSelected ? 'text-yellow-400 translate-x-1' : 'text-slate-600'
                         }`}
                       />
                     </button>
@@ -219,9 +219,9 @@ export const OurWork: React.FC<OurWorkProps> = ({ onSelectTopicForBooking }) => 
               {/* Right Column: Selected Topic Detail Card */}
               <div className="lg:col-span-7">
                 {selectedWorkshop && (
-                  <div className="p-6 sm:p-8 rounded-2xl bg-[#121538] border border-white/5">
+                  <div className="p-6 sm:p-8 rounded-3xl bg-black/40 backdrop-blur-md shadow-2xl">
                     <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-                      <span className="text-xs font-mono font-bold text-amber-300 bg-amber-950/60 border border-amber-500/20 px-3.5 py-1 rounded-full">
+                      <span className="text-xs font-mono font-bold text-yellow-400 bg-yellow-400/10 px-3.5 py-1 rounded-full">
                         Interactive Workshop Module
                       </span>
                       <span className="text-xs text-slate-400 font-medium">
@@ -244,7 +244,7 @@ export const OurWork: React.FC<OurWorkProps> = ({ onSelectTopicForBooking }) => 
                       <div className="space-y-2.5">
                         {selectedWorkshop.outcomes.map((out) => (
                           <div key={out} className="flex items-start gap-2.5">
-                            <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                            <CheckCircle2 className="w-4 h-4 text-yellow-400 flex-shrink-0 mt-0.5" />
                             <span className="text-xs sm:text-sm text-slate-200 font-medium">
                               {out}
                             </span>
@@ -253,7 +253,7 @@ export const OurWork: React.FC<OurWorkProps> = ({ onSelectTopicForBooking }) => 
                       </div>
                     </div>
 
-                    <div className="pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4">
+                    <div className="pt-6 flex flex-wrap items-center justify-between gap-4">
                       <button
                         onClick={() => handleBookTopic(selectedWorkshop.title)}
                         className="btn-primary px-7 py-3 text-xs font-bold flex items-center gap-2 cursor-pointer shadow"
